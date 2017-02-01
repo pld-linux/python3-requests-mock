@@ -10,7 +10,7 @@
 Summary:	Mock out responses from the requests package
 Name:		python-%{pypi_name}
 Version:	1.3.0
-Release:	1
+Release:	2
 License:	Apache
 Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/8d/cb/1267d7294d97e9a3ef24bf1370791da4d2dc6abc0f67626f38f4bf25dfa3/%{pypi_name}-%{version}.tar.gz
@@ -36,12 +36,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 requests-mock provides a building block to stub out the HTTP requests
 portions of your testing code.
 
-%package -n python3-%{module}
+%package -n python3-%{pypi_name}
 Summary:	Mock out responses from the requests package
 Group:		Libraries/Python
 Requires:	python3-modules
 
-%description -n python3-%{module}
+%description -n python3-%{pypi_name}
 requests-mock provides a building block to stub out the HTTP requests
 portions of your testing code.
 
@@ -82,7 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %if %{with python3}
-%files -n python3-%{module}
+%files -n python3-%{pypi_name}
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README.rst *.txt
 %{py3_sitescriptdir}/%{module}

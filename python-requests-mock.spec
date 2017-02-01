@@ -1,17 +1,9 @@
 #
-# This is template for pure python modules (noarch)
-# use template-specs/python-ext.spec for binary python packages
-#
-#
 # Conditional build:
 %bcond_with	tests	# do not perform "make test"
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
-# NOTES:
-# - 'module' should match the Python import path (first component?)
-# - 'egg_name' should equal to Python egg name
-# - 'pypi_name' must match the Python Package Index name
 %define		module		requests_mock
 %define		egg_name	%{module}
 %define		pypi_name	requests-mock

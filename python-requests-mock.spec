@@ -13,7 +13,7 @@ Version:	1.3.0
 Release:	2
 License:	Apache
 Group:		Libraries/Python
-Source0:	https://pypi.python.org/packages/8d/cb/1267d7294d97e9a3ef24bf1370791da4d2dc6abc0f67626f38f4bf25dfa3/%{pypi_name}-%{version}.tar.gz
+Source0:	https://files.pythonhosted.org/packages/source/r/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 # Source0-md5:	d2efbaf16d19153b7d271628071b4d4b
 URL:		https://requests-mock.readthedocs.io
 BuildRequires:	rpm-pythonprov

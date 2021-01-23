@@ -1,0 +1,14 @@
+--- requests-mock-1.8.0/tests/test_mocker.py.orig	2020-05-02 15:10:34.000000000 +0200
++++ requests-mock-1.8.0/tests/test_mocker.py	2021-01-22 21:32:19.031749242 +0100
+@@ -12,7 +12,10 @@
+ 
+ import pickle
+ 
+-import mock
++try:
++    import mock
++except ImportError:
++    from unittest import mock
+ import requests
+ 
+ import requests_mock

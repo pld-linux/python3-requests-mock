@@ -34,8 +34,10 @@ BuildRequires:	python-purl
 BuildRequires:	python-pytest
 BuildRequires:	python-requests >= 2.3
 BuildRequires:	python-six
+BuildRequires:	python-subunit
 BuildRequires:	python-testrepository >= 0.0.18
 BuildRequires:	python-testtools
+BuildRequires:	subunit-python2
 %endif
 %endif
 %if %{with python3}
@@ -48,8 +50,10 @@ BuildRequires:	python3-purl
 BuildRequires:	python3-pytest
 BuildRequires:	python3-requests >= 2.3
 BuildRequires:	python3-six
+BuildRequires:	python3-subunit
 BuildRequires:	python3-testrepository >= 0.0.18
 BuildRequires:	python3-testtools
+BuildRequires:	subunit-python3
 %endif
 %endif
 %if %{with doc}

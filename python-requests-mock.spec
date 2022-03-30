@@ -12,7 +12,7 @@ Summary:	Mock out responses from the requests package
 Summary(pl.UTF-8):	Podstawianie atrap odpowiedzi z pakietu requests
 Name:		python-%{pypi_name}
 Version:	1.8.0
-Release:	3
+Release:	4
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/requests-mock/

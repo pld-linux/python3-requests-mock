@@ -11,20 +11,19 @@
 Summary:	Mock out responses from the requests package
 Summary(pl.UTF-8):	Podstawianie atrap odpowiedzi z pakietu requests
 Name:		python-%{pypi_name}
-Version:	1.8.0
-Release:	4
+Version:	1.11.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/requests-mock/
 Source0:	https://files.pythonhosted.org/packages/source/r/requests-mock/%{pypi_name}-%{version}.tar.gz
-# Source0-md5:	f09403c1d05ae2d3a72cac6aeb74c40d
-Patch0:		%{name}-mock.patch
+# Source0-md5:	04be84aa5fdc94fde14e57da1965c85d
 Patch1:		%{name}-no-git.patch
 URL:		https://requests-mock.readthedocs.io/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
-BuildRequires:	python-modules
+BuildRequires:	python-modules >= 1:2.7
 BuildRequires:	python-pbr
 BuildRequires:	python-setuptools
 %if %{with tests}
@@ -33,6 +32,7 @@ BuildRequires:	python-mock
 BuildRequires:	python-purl
 BuildRequires:	python-pytest
 BuildRequires:	python-requests >= 2.3
+BuildRequires:	python-requests-futures
 BuildRequires:	python-six
 BuildRequires:	python-subunit
 BuildRequires:	python-testrepository >= 0.0.18
@@ -41,7 +41,7 @@ BuildRequires:	subunit-python2
 %endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-modules
+BuildRequires:	python3-modules >= 1:3.4
 BuildRequires:	python3-pbr
 BuildRequires:	python3-setuptools
 %if %{with tests}
@@ -49,6 +49,7 @@ BuildRequires:	python3-fixtures
 BuildRequires:	python3-purl
 BuildRequires:	python3-pytest
 BuildRequires:	python3-requests >= 2.3
+BuildRequires:	python3-requests-futures
 BuildRequires:	python3-six
 BuildRequires:	python3-subunit
 BuildRequires:	python3-testrepository >= 0.0.18
@@ -60,6 +61,7 @@ BuildRequires:	subunit-python3
 BuildRequires:	python3-reno
 BuildRequires:	sphinx-pdg-3
 %endif
+Requires:	python-modules >= 1:2.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -75,7 +77,7 @@ w kodzie testowym.
 Summary:	Mock out responses from the requests package
 Summary(pl.UTF-8):	Podstawianie atrap odpowiedzi z pakietu requests
 Group:		Libraries/Python
-Requires:	python3-modules
+Requires:	python3-modules >= 1:3.4
 
 %description -n python3-%{pypi_name}
 requests-mock provides a building block to stub out the HTTP requests
@@ -98,7 +100,6 @@ Dokumentacja API modułu requests_mock.
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-%patch0 -p1
 %patch1 -p1
 
 %build
@@ -106,6 +107,8 @@ Dokumentacja API modułu requests_mock.
 %py_build
 
 %if %{with tests}
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS=requests_mock.contrib._pytest_plugin \
 PYTHONPATH=$(pwd) \
 %{__python} -m pytest tests/pytest
 
@@ -117,11 +120,21 @@ PYTHONPATH=$(pwd) \
 %py3_build
 
 %if %{with tests}
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS=requests_mock.contrib._pytest_plugin \
 PYTHONPATH=$(pwd) \
 %{__python3} -m pytest tests/pytest
 
 %{__python3} -m subunit.run discover | subunit2pyunit-3
 %endif
+%endif
+
+%if %{with doc}
+#%{__make} -C doc html \
+#	SPHINXBUILD=sphinx-build-3
+# broken Makefile (specifies . instead of "source" as source dir), so invoke directly:
+PYTHONPATH=$(pwd) \
+sphinx-build-3 -b html doc/source doc/_build/html
 %endif
 
 %install
@@ -135,14 +148,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with python3}
 %py3_install
-%endif
-
-%if %{with doc}
-#%{__make} -C doc html \
-#	SPHINXBUILD=sphinx-build-3
-# broken Makefile (specifies . instead of "source" as source dir), so invoke directly:
-PYTHONPATH=$(pwd) \
-sphinx-build-3 -b html doc/source doc/_build/html
 %endif
 
 %clean

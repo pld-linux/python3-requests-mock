@@ -100,7 +100,7 @@ Dokumentacja API modułu requests_mock.
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-%patch1 -p1
+%patch -P 1 -p1
 
 %build
 %if %{with python2}

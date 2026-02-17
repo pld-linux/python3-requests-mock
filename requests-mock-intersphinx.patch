@@ -1,0 +1,10 @@
+Recent sphinx doesn't allow non-unique URIs
+--- requests-mock-1.12.1/doc/source/conf.py.orig	2026-02-17 19:07:05.007972311 +0100
++++ requests-mock-1.12.1/doc/source/conf.py	2026-02-17 19:26:23.395030123 +0100
+@@ -259,6 +259,5 @@ requests_uri = 'https://requests.readthe
+ urllib3_uri = 'https://urllib3.readthedocs.io/en/latest/'
+ python_uri = 'https://docs.python.org/3/'
+ intersphinx_mapping = {'requests': (requests_uri, None),
+-                       'urllib': (python_uri, None),
+                        'urllib3': (urllib3_uri, None),
+                        'python': (python_uri, None)}
